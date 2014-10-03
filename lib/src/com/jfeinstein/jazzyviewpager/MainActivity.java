@@ -2,6 +2,8 @@ package com.jfeinstein.jazzyviewpager;
 
 import java.util.ArrayList;
 
+import uk.co.senab.photoview.PhotoView;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -64,21 +66,11 @@ public class MainActivity extends Activity {
     private class MainAdapter extends PagerAdapter {
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
-            final ImageView imageView = new ImageView(MainActivity.this);
-            mImageLoader.displayImage("file://" + mModelList.get(position).mPath, imageView,
-                    new SimpleImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String imageUri, View view) {
-                            imageView.setImageResource(R.drawable.no_media);
-                            super.onLoadingStarted(imageUri, view);
-                        }
-                    });
-
-
-
-            container.addView(imageView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            mJazzy.setObjectForPosition(imageView, position);
-            return imageView;
+            final PhotoView photoView = new PhotoView(container.getContext());
+            mImageLoader.displayImage("file://" + mModelList.get(position).mPath, photoView);
+            container.addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            mJazzy.setObjectForPosition(photoView, position);
+            return photoView;
         }
 
         @Override
