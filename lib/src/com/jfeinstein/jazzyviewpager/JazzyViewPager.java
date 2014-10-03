@@ -1,5 +1,6 @@
 package com.jfeinstein.jazzyviewpager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.habzy.image.picker.GridItemModel;
 import com.nineoldandroids.view.ViewHelper;
 
 public class JazzyViewPager extends ViewPager {
@@ -30,6 +32,8 @@ public class JazzyViewPager extends ViewPager {
     private TransitionEffect mEffect = TransitionEffect.Standard;
 
     private HashMap<Integer, Object> mObjs = new LinkedHashMap<Integer, Object>();
+
+    private ViewPagerAdapter mAdapter;
 
     private static final float SCALE_MAX = 0.5f;
     private static final float ZOOM_MAX = 0.5f;
@@ -66,6 +70,8 @@ public class JazzyViewPager extends ViewPager {
                 setFadeEnabled(true);
         }
         ta.recycle();
+        mAdapter = new ViewPagerAdapter(this);
+        setAdapter(mAdapter);
     }
 
     public void setTransitionEffect(TransitionEffect effect) {
@@ -560,6 +566,10 @@ public class JazzyViewPager extends ViewPager {
                 return v;
         }
         return null;
+    }
+
+    public void setImagePath(ArrayList<GridItemModel> galleryPhotos) {
+        mAdapter.setImagePath(galleryPhotos);
     }
 
 }

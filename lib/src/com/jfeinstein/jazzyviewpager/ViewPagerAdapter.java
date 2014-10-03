@@ -18,9 +18,8 @@ public class ViewPagerAdapter extends PagerAdapter {
     ArrayList<GridItemModel> mModelList;
     private JazzyViewPager mJazzy;
 
-    public ViewPagerAdapter(ArrayList<GridItemModel> modelList, JazzyViewPager jazzy) {
+    public ViewPagerAdapter(JazzyViewPager jazzy) {
         mImageLoader = ImageTools.getImageLoader(jazzy.getContext());
-        mModelList = modelList;
         mJazzy = jazzy;
     }
 
@@ -50,5 +49,9 @@ public class ViewPagerAdapter extends PagerAdapter {
         } else {
             return view == obj;
         }
+    }
+
+    public void setImagePath(ArrayList<GridItemModel> galleryPhotos) {
+        mModelList = galleryPhotos;
     }
 }

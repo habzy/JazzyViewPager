@@ -42,8 +42,7 @@ public class MainActivity extends Activity {
     private void setupJazziness(TransitionEffect effect) {
         mJazzy = (JazzyViewPager) findViewById(R.id.jazzy_pager);
         mJazzy.setTransitionEffect(effect);
-        mJazzy.setAdapter(new ViewPagerAdapter(ImageTools.getGalleryPhotos(getContentResolver()),
-                mJazzy));
+        mJazzy.setImagePath(ImageTools.getGalleryPhotos(getContentResolver()));
         mJazzy.setPageMargin(30);
     }
 }
