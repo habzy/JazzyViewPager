@@ -1,38 +1,21 @@
 package com.jfeinstein.jazzyviewpager;
 
-import java.util.ArrayList;
-
-import uk.co.senab.photoview.PhotoView;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
 
-import com.habzy.image.picker.GridItemModel;
 import com.habzy.image.tools.ImageTools;
 import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class MainActivity extends Activity {
 
-    private JazzyViewPager mJazzy;
-    ArrayList<GridItemModel> mModelList;
-    private ImageLoader mImageLoader;
-
+    JazzyViewPager mJazzy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mImageLoader = ImageTools.getImageLoader(this);
-        mModelList = ImageTools.getGalleryPhotos(getContentResolver());
         setupJazziness(TransitionEffect.Tablet);
     }
 
@@ -59,37 +42,8 @@ public class MainActivity extends Activity {
     private void setupJazziness(TransitionEffect effect) {
         mJazzy = (JazzyViewPager) findViewById(R.id.jazzy_pager);
         mJazzy.setTransitionEffect(effect);
-        mJazzy.setAdapter(new MainAdapter());
+        mJazzy.setAdapter(new ViewPagerAdapter(ImageTools.getGalleryPhotos(getContentResolver()),
+                mJazzy));
         mJazzy.setPageMargin(30);
-    }
-
-    private class MainAdapter extends PagerAdapter {
-        @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
-            final PhotoView photoView = new PhotoView(container.getContext());
-            mImageLoader.displayImage("file://" + mModelList.get(position).mPath, photoView);
-            container.addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            mJazzy.setObjectForPosition(photoView, position);
-            return photoView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object obj) {
-            container.removeView(mJazzy.findViewFromObject(position));
-        }
-
-        @Override
-        public int getCount() {
-            return mModelList.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object obj) {
-            if (view instanceof OutlineContainer) {
-                return ((OutlineContainer) view).getChildAt(0) == obj;
-            } else {
-                return view == obj;
-            }
-        }
     }
 }
