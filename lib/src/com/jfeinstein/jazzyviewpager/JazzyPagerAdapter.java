@@ -12,13 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
-public class ViewPagerAdapter extends PagerAdapter {
+public class JazzyPagerAdapter extends PagerAdapter {
 
     private ImageLoader mImageLoader;
     ArrayList<GridItemModel> mModelList;
     private JazzyViewPager mJazzy;
 
-    public ViewPagerAdapter(JazzyViewPager jazzy) {
+    public JazzyPagerAdapter(JazzyViewPager jazzy) {
         mImageLoader = ImageTools.getImageLoader(jazzy.getContext());
         mJazzy = jazzy;
     }

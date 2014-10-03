@@ -33,7 +33,7 @@ public class JazzyViewPager extends ViewPager {
 
     private HashMap<Integer, Object> mObjs = new LinkedHashMap<Integer, Object>();
 
-    private ViewPagerAdapter mAdapter;
+    private JazzyPagerAdapter mAdapter;
 
     private static final float SCALE_MAX = 0.5f;
     private static final float ZOOM_MAX = 0.5f;
@@ -70,7 +70,7 @@ public class JazzyViewPager extends ViewPager {
                 setFadeEnabled(true);
         }
         ta.recycle();
-        mAdapter = new ViewPagerAdapter(this);
+        mAdapter = new JazzyPagerAdapter(this);
         setAdapter(mAdapter);
     }
 
